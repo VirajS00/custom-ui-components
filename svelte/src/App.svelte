@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Switch from './components/Switch.svelte';
+  import CheckBox from './components/CheckBox.svelte';
 </script>
 
 <main>
   <div class="container">
-    <Switch name="test" />
+    <CheckBox name="test" label="test" />
   </div>
 </main>
 
@@ -21,7 +21,6 @@
     gap: 2rem;
     justify-content: center;
     align-items: center;
-    background-color: rgb(208, 208, 208);
     height: 300px;
     width: 400px;
     border-radius: 0.5rem;
