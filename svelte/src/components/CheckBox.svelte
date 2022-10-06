@@ -5,31 +5,50 @@
   export let name: string;
   export let value: boolean = false;
   export let label: string;
+  export let disabled: boolean = false;
 </script>
 
-<div>
+<div class={disabled ? 'disabled' : ''}>
   <label for={name} class="icon-label {value ? 'checked' : ''}">
     <input
       type="checkbox"
       class="check"
       {name}
       id={name}
+      bind:checked={value}
       {value}
       on:input={() => {
         value = !value;
       }}
+      {disabled}
     />
     <span class="icon">
-      <Fa icon={faCheck} color="var(--clr-primary-400)" />
+      <Fa
+        icon={faCheck}
+        color={disabled ? 'var(--clr-neutral-400)' : 'var(--clr-primary-400)'}
+      />
     </span>
   </label>
-  <label for={name}>{label}</label>
+  <label for={name} class="label1 {disabled ? 'disabled' : ''}">{label}</label>
 </div>
 
 <style lang="scss">
   div {
     display: inline-flex;
     gap: 0.5em;
+
+    &.disabled {
+      cursor: not-allowed;
+
+      label {
+        cursor: not-allowed;
+      }
+
+      & .icon-label.checked {
+        background-color: var(--clr-neutral-300);
+        border-color: var(--clr-neutral-400);
+      }
+    }
   }
 
   label {
@@ -71,8 +90,20 @@
       }
     }
 
+    // &:focus-within {
+    //   border: 0.17em solid var(--clr-primary-300);
+    // }
+
+    &:has(:focus-visible) {
+      border: 0.17em solid var(--clr-primary-300);
+    }
+
     .check {
       transform: scale(0);
     }
+  }
+
+  .label1.disabled {
+    color: var(--clr-neutral-400);
   }
 </style>
