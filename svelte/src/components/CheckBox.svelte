@@ -90,11 +90,7 @@
       }
     }
 
-    // &:focus-within {
-    //   border: 0.17em solid var(--clr-primary-300);
-    // }
-
-    &:has(:focus-visible) {
+    &:focus-within {
       border: 0.17em solid var(--clr-primary-300);
     }
 
