@@ -90,12 +90,12 @@
       }
     }
 
-    &:focus-within {
-      border: 0.17em solid var(--clr-primary-300);
-    }
-
     .check {
       transform: scale(0);
+    }
+
+    .check:focus-visible {
+      border: 2px solid var(--clr-neutral-300);
     }
   }
 

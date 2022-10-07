@@ -1,15 +1,18 @@
 <script lang="ts">
   export let name: string;
   export let value: boolean = false;
+  export let disabled: boolean = false;
 </script>
 
-<label for={name} class={value ? 'checked' : ''}>
+<label for={name} class="{value ? 'checked' : ''} {disabled ? 'disabled' : ''}">
   <input
     type="checkbox"
     class="check"
     {name}
     id={name}
     {value}
+    {disabled}
+    bind:checked={value}
     on:input={() => {
       value = !value;
     }}
@@ -55,6 +58,11 @@
 
     .check {
       transform: scale(0);
+    }
+
+    &.disabled {
+      background-color: var(--clr-neutral-200);
+      cursor: not-allowed;
     }
   }
 </style>
