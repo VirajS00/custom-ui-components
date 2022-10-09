@@ -7,7 +7,7 @@
 
 <main>
   <div class="container">
-    <TextBox name="test2" />
+    <TextBox name="test2" type="text" />
   </div>
   <div class="container">
     <CheckBox name="test" label="test" />
