@@ -1,11 +1,15 @@
 <script lang="ts">
   import Button from './components/Button.svelte';
   import CheckBox from './components/CheckBox.svelte';
+  import Select from './components/Select.svelte';
   import Switch from './components/Switch.svelte';
   import TextBox from './components/TextBox.svelte';
 </script>
 
 <main>
+  <div class="container">
+    <Select />
+  </div>
   <div class="container">
     <TextBox name="test2" type="text" />
   </div>
