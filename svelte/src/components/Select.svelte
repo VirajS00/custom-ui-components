@@ -1,12 +1,56 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import type { SelectOption } from 'src/helpers/types/selectOption';
+  import { clickOutside } from '../helpers/clickOutside';
 
-<div class="select" role="listbox" tabindex="0">
-  <div class="current-option">Hello</div>
-  <ul class="items">
-    <li>Hello</li>
-    <li>Hello 1</li>
-    <li>Hello 2</li>
-    <li>Hello 3</li>
+  export let options: SelectOption[];
+
+  let show: boolean = false;
+  let highlightedIndex = 0;
+  let currentIndex: number = 0;
+
+  const hideMenu = () => (show = !show);
+
+  function handleClickOutside() {
+    show = false;
+  }
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case 'Space':
+        show = true;
+      default:
+        hideMenu();
+    }
+  };
+</script>
+
+<div
+  class="select {show ? 'show' : ''}"
+  role="listbox"
+  tabindex="0"
+  on:click={hideMenu}
+>
+  <div
+    class="current-option {show ? 'show' : ''}"
+    use:clickOutside
+    on:click_outside={handleClickOutside}
+    on:keydown={handleKeyDown}
+  >
+    {options[currentIndex].label}
+  </div>
+  <ul class="items {show ? '' : 'hidden'}">
+    {#each options as option, i}
+      <li on:mouseenter={() => (highlightedIndex = i)}>
+        <button
+          value={option.value}
+          class={highlightedIndex === i ? 'highlited' : ''}
+          on:click={() => {
+            currentIndex = i;
+            show = false;
+          }}>{option.label}</button
+        >
+      </li>
+    {/each}
   </ul>
 </div>
 
@@ -24,6 +68,10 @@
     &:focus-visible {
       border-color: var(--clr-primary-400);
     }
+
+    &.show {
+      border-color: var(--clr-primary-500);
+    }
   }
 
   .current-option {
@@ -37,6 +85,16 @@
       border: 0.25em solid transparent;
       border-top-color: var(--clr-neutral-400);
       transform: translateY(25%);
+    }
+
+    &.show {
+      color: var(--clr-primary-500);
+    }
+
+    &.show::after {
+      border-color: transparent;
+      border-bottom-color: var(--clr-primary-500);
+      transform: translateY(-25%);
     }
   }
 
@@ -55,9 +113,28 @@
     padding-inline: 0;
 
     li {
-      padding-inline: 0.7em;
-      padding-block: 0.25em;
       margin: 0;
+
+      button {
+        padding-inline: 1em;
+        padding-block: 0.7em;
+        width: 100%;
+        text-align: left;
+        appearance: none;
+        border: 0;
+        background-color: var(--clr-neutral-50);
+        cursor: pointer;
+        font-size: 1rem;
+
+        &.highlited {
+          background-color: var(--clr-primary-100);
+          color: var(--clr-primary-600);
+        }
+      }
+    }
+
+    &.hidden {
+      display: none;
     }
   }
 </style>

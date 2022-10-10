@@ -4,11 +4,19 @@
   import Select from './components/Select.svelte';
   import Switch from './components/Switch.svelte';
   import TextBox from './components/TextBox.svelte';
+  import type { SelectOption } from './helpers/types/selectOption';
+
+  const options: SelectOption[] = [
+    { label: 'Hello', value: 'hello' },
+    { label: 'Hello3', value: 'hello3' },
+    { label: 'Hello2', value: 'hello2' },
+    { label: 'Hello1', value: 'hello1' },
+  ];
 </script>
 
 <main>
   <div class="container">
-    <Select />
+    <Select {options} />
   </div>
   <div class="container">
     <TextBox name="test2" type="text" />
